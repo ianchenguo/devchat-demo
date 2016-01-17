@@ -1,27 +1,15 @@
+import {API_BASE_URL} from './api-url-const';
+import * as rx from 'rx';
+
 export class ServerService {
 
   static $inject = [
-    '$http',
-    'API_BASE_URL'
+    '$http'
   ];
 
-  constructor(
-    private $http: angular.IHttpService,
-    private API_BASE_URL
-  ) { }
+  constructor(private $http: angular.IHttpService) {}
 
-  public get(path) {
-    return this.$http.get(this.API_BASE_URL + path)
-      .then(response => response.data);
-  }
-
-  public post(path, data) {
-    return this.$http.post(this.API_BASE_URL + path, data)
-      .then(response => response.data);
-  }
-
-  public put(path, id, data) {
-    return this.$http.post(this.API_BASE_URL + path + '/' + id, data)
-      .then(response => response.data);
+  public get(path: string) {
+    return rx.Observable.fromPromise(this.$http.get(`${API_BASE_URL}${path}`));
   }
 }

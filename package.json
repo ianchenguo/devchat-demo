@@ -25,7 +25,6 @@
     "basscss": "^7.0.4",
     "font-awesome": "^4.4.0",
     "immutable": "^3.7.5",
-    "koast-angular": "^0.2.2",
     "lodash-compat": "^3.10.1",
     "rx": "4.0.0"
   },
