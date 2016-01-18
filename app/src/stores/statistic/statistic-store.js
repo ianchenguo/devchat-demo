@@ -1,66 +1,68 @@
 "use strict";
 var action_type_enums_1 = require('../../actions/action-type-enums');
 var statistic_1 = require('../../domain/statistics/statistic');
+var statistic_type_enum_1 = require('../../domain/statistics/statistic-type-enum');
 var api_url_const_1 = require('../../services/server/api-url-const');
 var immutable_1 = require('immutable');
 var Rx = require('rx');
-var StatisticStore = (function () {
-    function StatisticStore(dispatcher, serverService) {
+var StatisticsStore = (function () {
+    function StatisticsStore(dispatcher, server) {
         this.dispatcher = dispatcher;
-        this.serverService = serverService;
+        this.server = server;
         this.registerActionHandlers();
         this.initialize();
     }
-    Object.defineProperty(StatisticStore.prototype, "Statistics", {
+    Object.defineProperty(StatisticsStore.prototype, "Statistics", {
         get: function () {
             return this.statistics.toJS();
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(StatisticStore.prototype, "StatisticsSubject", {
+    Object.defineProperty(StatisticsStore.prototype, "StatisticsSubject", {
         get: function () {
             return this.statisticsSubject;
         },
         enumerable: true,
         configurable: true
     });
-    StatisticStore.prototype.initialize = function () {
+    StatisticsStore.prototype.initialize = function () {
         this.statistics = immutable_1.List();
         this.statisticsSubject = new Rx.ReplaySubject(1);
     };
-    StatisticStore.prototype.registerActionHandlers = function () {
+    StatisticsStore.prototype.registerActionHandlers = function () {
         var _this = this;
         this.dispatcher.filter(function (action) { return action.actionType === action_type_enums_1.StatisticActionType.GetStatistic; })
             .subscribe(function (action) { return _this.getStatistic(action.statisticType); });
     };
-    StatisticStore.prototype.getStatistic = function (statisticType) {
+    StatisticsStore.prototype.getStatistic = function (statisticType) {
         var _this = this;
-        this.serverService.get("" + api_url_const_1.API_BASE_URL + api_url_const_1.STATISTIC_URLS[statisticType])
-            .subscribe(function (value) {
+        this.server.get(api_url_const_1.STATISTIC_URLS.get(statisticType))
+            .subscribe(function (response) {
+            var data = response.data[statistic_type_enum_1.StatisticType[statisticType]];
             var statistic = _this.statistics.find(function (_) { return _.Type === statisticType; });
             if (statistic) {
-                statistic.Value = value.data;
+                statistic.Value = data;
             }
             else {
-                _this.statistics.push(new statistic_1.Statistic(statisticType, value.data));
+                _this.statistics = _this.statistics.push(new statistic_1.Statistic(statisticType, data));
             }
             _this.emitChange();
         }, function (error) {
             _this.emitError(error);
         });
     };
-    StatisticStore.prototype.emitChange = function () {
+    StatisticsStore.prototype.emitChange = function () {
         this.statisticsSubject.onNext(this.Statistics);
     };
-    StatisticStore.prototype.emitError = function (error) {
+    StatisticsStore.prototype.emitError = function (error) {
         this.statisticsSubject.onError(error);
     };
-    StatisticStore.$inject = [
+    StatisticsStore.$inject = [
         'dispatcher',
-        'ServerService'
+        'server'
     ];
-    return StatisticStore;
+    return StatisticsStore;
 }());
-exports.StatisticStore = StatisticStore;
+exports.StatisticsStore = StatisticsStore;
 //# sourceMappingURL=statistic-store.js.map

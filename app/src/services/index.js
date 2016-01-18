@@ -4,4 +4,5 @@ function __export(m) {
 }
 // export * from './router/router-service';
 __export(require('./server/server-service'));
+__export(require('./date/date-service'));
 //# sourceMappingURL=index.js.map

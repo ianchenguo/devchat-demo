@@ -10,14 +10,16 @@ import * as Rx from 'rx';
 
 import {
   ServerService,
+  DateService
 } from './services';
 
 import {
-  StatisticStore
+  StatisticsStore
 } from './stores';
 
 import {
-  RateTrendsComponent
+  RateTrendsComponent,
+  RateTrendsHeaderComponent
 } from './components';
 
 import {
@@ -30,17 +32,21 @@ import {
 //   .service('router', RouterService);
 
 angular.module('ngcourse.server', [])
-  .service('server', ServerService);
+  .service('server', ServerService)
+  .service('dateService', DateService);
 
 angular.module('ngcourse.dispatcher', [])
   .service('dispatcher', Rx.Subject);
 
 angular.module('ngcourse.statistics', [])
-  .service('statisticStore', StatisticStore)
+  .service('statisticsStore', StatisticsStore)
   .service('statisticActions', StatisticActions)
   .directive(
     RateTrendsComponent.selector,
-    RateTrendsComponent.directiveFactory);
+    RateTrendsComponent.directiveFactory)
+  .directive(
+    RateTrendsHeaderComponent.selector,
+    RateTrendsHeaderComponent.directiveFactory);
 
 angular.module('ngcourse', [
   'ngcourse.statistics',

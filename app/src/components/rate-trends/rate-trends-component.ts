@@ -1,4 +1,4 @@
-import {StatisticStore} from '../../stores';
+import {StatisticsStore} from '../../stores';
 import {StatisticActions} from '../../actions';
 import {StatisticActionType} from '../../actions/action-type-enums';
 import {Statistic} from '../../domain/statistics/statistic';
@@ -22,7 +22,7 @@ export class RateTrendsComponent {
 
   static $inject = [
     '$scope',
-    'statisticStore',
+    'statisticsStore',
     'statisticActions'
   ];
 
@@ -30,12 +30,12 @@ export class RateTrendsComponent {
   private errorMessage: string;
   constructor(
     private $scope: ng.IScope,
-    private statisticStore: StatisticStore,
+    private statisticsStore: StatisticsStore,
     private statisticActions: StatisticActions
   ) {
     this.statistics = List<Statistic>();
 
-    let statisticSubscription = this.statisticStore.StatisticsSubject.subscribe(
+    let statisticSubscription = this.statisticsStore.StatisticsSubject.subscribe(
       statistics => {
         this.statistics = statistics;
         console.log(this.statistics);

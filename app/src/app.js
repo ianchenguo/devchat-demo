@@ -13,15 +13,16 @@ var actions_1 = require('./actions');
 // angular.module('ngcourse.router', ['ui.router'])
 //   .config(RouterConfig)
 //   .service('router', RouterService);
-console.log(stores_1.StatisticStore);
-angular.module('ngcourse.statistics', [])
-    .service('StatisticStore', stores_1.StatisticStore)
-    .service('statisticActions', actions_1.StatisticActions)
-    .directive(components_1.RateTrendsComponent.selector, components_1.RateTrendsComponent.directiveFactory);
 angular.module('ngcourse.server', [])
-    .service('server', services_1.ServerService);
+    .service('server', services_1.ServerService)
+    .service('dateService', services_1.DateService);
 angular.module('ngcourse.dispatcher', [])
     .service('dispatcher', Rx.Subject);
+angular.module('ngcourse.statistics', [])
+    .service('statisticsStore', stores_1.StatisticsStore)
+    .service('statisticActions', actions_1.StatisticActions)
+    .directive(components_1.RateTrendsComponent.selector, components_1.RateTrendsComponent.directiveFactory)
+    .directive(components_1.RateTrendsHeaderComponent.selector, components_1.RateTrendsHeaderComponent.directiveFactory);
 angular.module('ngcourse', [
     'ngcourse.statistics',
     'ngcourse.server',

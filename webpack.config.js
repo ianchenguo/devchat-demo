@@ -15,6 +15,8 @@ module.exports = {
     vendor: [
       'immutable',
       'rx',
+      'moment',
+      'moment-range',
       'angular',
       'angular-ui-router',
       'basscss/css/basscss.css',

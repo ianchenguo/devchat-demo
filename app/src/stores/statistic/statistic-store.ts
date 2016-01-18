@@ -8,7 +8,7 @@ import {API_BASE_URL, STATISTIC_URLS}
 import {Map, List, fromJS} from 'immutable';
 import * as Rx from 'rx';
 
-export class StatisticStore {
+export class StatisticsStore {
 
   private statisticsSubject: Rx.ReplaySubject<any>;
   private statistics: List<Statistic>;

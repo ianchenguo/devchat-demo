@@ -1,0 +1,19 @@
+<form class="form-inline">
+  <div class="form-group">
+    <label class="sr-only" for="from_date">From Date</label>
+    <select class="form-control"
+            id="from_date"
+            ng-options="option for option in ctrl.availableDates"
+            ng-model="ctrl.selectedBeginDate.DateString">
+    </select>
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="to_date">To Date</label>
+    <select class="form-control"
+            id="to_date"
+            ng-options="option for option in ctrl.availableDates"
+            ng-model="ctrl.selectedEndDate.DateString">
+    </select>
+  </div>
+
+</form>

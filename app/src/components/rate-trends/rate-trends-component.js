@@ -2,13 +2,13 @@
 var statistic_type_enum_1 = require('../../domain/statistics/statistic-type-enum');
 var immutable_1 = require('immutable');
 var RateTrendsComponent = (function () {
-    function RateTrendsComponent($scope, statisticStore, statisticActions) {
+    function RateTrendsComponent($scope, statisticsStore, statisticActions) {
         var _this = this;
         this.$scope = $scope;
-        this.statisticStore = statisticStore;
+        this.statisticsStore = statisticsStore;
         this.statisticActions = statisticActions;
         this.statistics = immutable_1.List();
-        var statisticSubscription = this.statisticStore.StatisticsSubject.subscribe(function (statistics) {
+        var statisticSubscription = this.statisticsStore.StatisticsSubject.subscribe(function (statistics) {
             _this.statistics = statistics;
             console.log(_this.statistics);
         }, function (error) { return _this.errorMessage = error; });
@@ -42,7 +42,7 @@ var RateTrendsComponent = (function () {
     }); };
     RateTrendsComponent.$inject = [
         '$scope',
-        'statisticStore',
+        'statisticsStore',
         'statisticActions'
     ];
     return RateTrendsComponent;
