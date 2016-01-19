@@ -7,7 +7,6 @@ var RateTrendsHeaderComponent = (function () {
         this.$scope = $scope;
         this.statisticActions = statisticActions;
         this.dateService = dateService;
-        this.statisticActions.GetStatistic(statistic_type_enum_1.StatisticType.ConsumerProductIndexes);
         this.initDates();
     }
     RateTrendsHeaderComponent.prototype.initDates = function () {
@@ -19,10 +18,13 @@ var RateTrendsHeaderComponent = (function () {
         this.selectedEndDate = {
             DateString: moment(this.endDate).format('YYYY/MM'),
             Epoch: moment(this.endDate).valueOf() };
-        console.log(this.selectedBeginDate);
-        console.log(this.selectedEndDate);
         this.availableDates = this.dateService.GetMonthYears(this.beginDate, this.endDate);
-        console.log(this.availableDates);
+    };
+    RateTrendsHeaderComponent.prototype.getStatistics = function (beginDate, endDate) {
+        beginDate.Epoch = moment(new Date(beginDate.DateString)).valueOf();
+        endDate.Epoch = moment(new Date(endDate.DateString)).valueOf();
+        var statisticTypes = [statistic_type_enum_1.StatisticType.ConsumerProductIndexes, statistic_type_enum_1.StatisticType.VolumeInMarketplaces];
+        this.statisticActions.GetStatistics(statisticTypes, [beginDate.Epoch, endDate.Epoch]);
     };
     Object.defineProperty(RateTrendsHeaderComponent.prototype, "ErrorMessage", {
         get: function () {

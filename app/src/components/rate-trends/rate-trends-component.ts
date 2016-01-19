@@ -46,7 +46,8 @@ export class RateTrendsComponent {
       statisticSubscription.dispose();
     });
 
-    this.statisticActions.GetStatistic(StatisticType.ConsumerProductIndexes);
+    let statisticTypes: Array<StatisticType> = [StatisticType.ConsumerProductIndexes, StatisticType.VolumeInMarketplaces];
+    this.statisticActions.LoadStatistics(statisticTypes);
   }
 
   get Statistics() {

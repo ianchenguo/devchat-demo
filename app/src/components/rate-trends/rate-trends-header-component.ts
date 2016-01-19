@@ -46,9 +46,7 @@ export class RateTrendsHeaderComponent {
     private statisticActions: StatisticActions,
     private dateService: DateService
   ) {
-    this.statisticActions.GetStatistic(StatisticType.ConsumerProductIndexes);
     this.initDates();
-
   }
 
   private initDates(){
@@ -59,13 +57,20 @@ export class RateTrendsHeaderComponent {
     this.selectedBeginDate = {
         DateString: moment(this.beginDate).format('YYYY/MM'),
         Epoch: moment(this.beginDate).valueOf() };
+
     this.selectedEndDate = {
         DateString: moment(this.endDate).format('YYYY/MM'),
         Epoch: moment(this.endDate).valueOf() };
-        console.log(this.selectedBeginDate);
-        console.log(this.selectedEndDate);
+
     this.availableDates = this.dateService.GetMonthYears(this.beginDate, this.endDate);
-    console.log(this.availableDates);
+  }
+
+  private getStatistics(beginDate:ISelectedDate, endDate:ISelectedDate){
+    beginDate.Epoch = moment(new Date(beginDate.DateString)).valueOf();
+    endDate.Epoch = moment(new Date(endDate.DateString)).valueOf();
+
+    let statisticTypes: Array<StatisticType> = [StatisticType.ConsumerProductIndexes, StatisticType.VolumeInMarketplaces];
+    this.statisticActions.GetStatistics(statisticTypes, [beginDate.Epoch, endDate.Epoch]);
   }
 
   get ErrorMessage() {

@@ -8,10 +8,18 @@ export class StatisticActions {
   constructor(
     private dispatcher: Rx.Subject<any>) { }
 
-  GetStatistic(statisticType: StatisticType) {
+  LoadStatistics(statisticTypes: Array<StatisticType>) {
     this.dispatcher.onNext({
-      actionType: StatisticActionType.GetStatistic,
-      statisticType: statisticType
+      actionType: StatisticActionType.LoadStatistics,
+      statisticTypes: statisticTypes
+    });
+  }
+
+  GetStatistics(statisticTypes: Array<StatisticType>, epochRange: Array<number>) {
+    this.dispatcher.onNext({
+      actionType: StatisticActionType.GetStatistics,
+      statisticTypes: statisticTypes,
+      epochRange: epochRange
     });
   }
 }

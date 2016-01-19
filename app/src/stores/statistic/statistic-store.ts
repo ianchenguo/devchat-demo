@@ -40,35 +40,51 @@ export class StatisticsStore {
   }
 
   private registerActionHandlers() {
-    this.dispatcher.filter(
-      action => action.actionType === StatisticActionType.GetStatistic)
-      .subscribe(action => this.getStatistic(action.statisticType));
+    this.dispatcher.filter(action => action.actionType === StatisticActionType.LoadStatistics)
+      .subscribe(action => this.loadStatistics(action.statisticTypes));
+
+    this.dispatcher.filter(action => action.actionType === StatisticActionType.GetStatistics)
+      .subscribe(action => this.getStatistics(action.statisticTypes, action.epochRange));
   }
 
-  private getStatistic(statisticType: StatisticType) {
-    this.server.get(STATISTIC_URLS.get(statisticType))
-    .subscribe(
-      (response) => {
+  private loadStatistics(statisticTypes: Array<StatisticType>) {
+    let whenStatisticTypesRecieved = Rx.Observable.fromArray(statisticTypes);
+    let whenStatisticsLoaded = whenStatisticTypesRecieved.flatMap(statisticType => this.server.get(STATISTIC_URLS.get(statisticType)));
+
+    whenStatisticsLoaded.subscribe(
+      response => {
+        let statisticType: StatisticType = StatisticType[Object.keys(response.data)[0] as string];
         let data = response.data[StatisticType[statisticType]];
-        let statistic: Statistic =
-          this.statistics.find(_ => _.Type === statisticType);
+        let statistic: Statistic = this.statistics.find(_ => _.Type === statisticType);
 
         if (statistic) {
           statistic.Value = data;
         } else {
           this.statistics = this.statistics.push(new Statistic(statisticType, data));
         }
-
-        this.emitChange();
-
       },
-      (error) => {
+      error => {
         this.emitError(error);
-      });
+      },
+      () => this.emitChange(this.Statistics));
   }
 
-  private emitChange() {
-    this.statisticsSubject.onNext(this.Statistics);
+  private getStatistics(statisticType: Array<StatisticType>, epochRange: Array<number>){
+    console.log(epochRange);
+    let result = this.statistics.map(statistic => {
+          let data = statistic.Value as Array<any>;
+          let filteredData =  data.filter(d => {
+            let ha = d.Date >= epochRange[0] &&  d.Date <= epochRange[1];
+            return ha;
+          });
+          return filteredData;
+      }).toJS();
+
+    this.emitChange(result);
+  }
+
+  private emitChange(result) {
+    this.statisticsSubject.onNext(result);
   }
 
   private emitError(error) {

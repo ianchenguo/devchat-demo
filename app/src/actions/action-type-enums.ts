@@ -1,3 +1,4 @@
 export enum StatisticActionType {
-  GetStatistic
+  LoadStatistics,
+  GetStatistics
 }

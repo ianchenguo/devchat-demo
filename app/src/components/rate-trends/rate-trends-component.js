@@ -15,7 +15,8 @@ var RateTrendsComponent = (function () {
         this.$scope.$on('$destroy', function () {
             statisticSubscription.dispose();
         });
-        this.statisticActions.GetStatistic(statistic_type_enum_1.StatisticType.ConsumerProductIndexes);
+        var statisticTypes = [statistic_type_enum_1.StatisticType.ConsumerProductIndexes, statistic_type_enum_1.StatisticType.VolumeInMarketplaces];
+        this.statisticActions.LoadStatistics(statisticTypes);
     }
     Object.defineProperty(RateTrendsComponent.prototype, "Statistics", {
         get: function () {

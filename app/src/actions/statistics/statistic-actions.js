@@ -4,10 +4,17 @@ var StatisticActions = (function () {
     function StatisticActions(dispatcher) {
         this.dispatcher = dispatcher;
     }
-    StatisticActions.prototype.GetStatistic = function (statisticType) {
+    StatisticActions.prototype.LoadStatistics = function (statisticTypes) {
         this.dispatcher.onNext({
-            actionType: action_type_enums_1.StatisticActionType.GetStatistic,
-            statisticType: statisticType
+            actionType: action_type_enums_1.StatisticActionType.LoadStatistics,
+            statisticTypes: statisticTypes
+        });
+    };
+    StatisticActions.prototype.GetStatistics = function (statisticTypes, epochRange) {
+        this.dispatcher.onNext({
+            actionType: action_type_enums_1.StatisticActionType.GetStatistics,
+            statisticTypes: statisticTypes,
+            epochRange: epochRange
         });
     };
     StatisticActions.$inject = ['dispatcher'];
