@@ -4,4 +4,5 @@ function __export(m) {
 }
 __export(require('./rate-trends/rate-trends-component'));
 __export(require('./rate-trends/rate-trends-header-component'));
+__export(require('./rate-trends/rate-trends-graphs-component'));
 //# sourceMappingURL=index.js.map

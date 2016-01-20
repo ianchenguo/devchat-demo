@@ -1,11 +1,25 @@
 rs-rate-trends {
+  margin-top: 20px;
   display: block;
   position:relative;
-  min-height: 500px;
 }
 
 rs-rate-trends-header {
   display: block;
   position: relative;
-  min-height: 200px;
+
+  form {
+    position: relative;
+  }
+}
+
+rs-rate-trends-graphs {
+  display: block;
+  position: relative;
+}
+
+.plot-canvas {
+  width: 100%;
+  height: 600px;
+  position: relative;
 }

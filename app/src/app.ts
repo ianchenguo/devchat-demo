@@ -1,8 +1,8 @@
 import 'angular-ui-router';
 import 'lodash-compat';
 
-import 'basscss/css/basscss.css';
-import 'font-awesome/css/font-awesome.css';
+// import 'basscss/css/basscss.css';
+// import 'font-awesome/css/font-awesome.css';
 import '../css/styles.css';
 
 import * as angular from 'angular';
@@ -19,7 +19,8 @@ import {
 
 import {
   RateTrendsComponent,
-  RateTrendsHeaderComponent
+  RateTrendsHeaderComponent,
+  RateTrendsGraphsComponent
 } from './components';
 
 import {
@@ -46,7 +47,10 @@ angular.module('ngcourse.statistics', [])
     RateTrendsComponent.directiveFactory)
   .directive(
     RateTrendsHeaderComponent.selector,
-    RateTrendsHeaderComponent.directiveFactory);
+    RateTrendsHeaderComponent.directiveFactory)
+  .directive(
+    RateTrendsGraphsComponent.selector,
+    RateTrendsGraphsComponent.directiveFactory);
 
 angular.module('ngcourse', [
   'ngcourse.statistics',

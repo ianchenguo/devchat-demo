@@ -70,14 +70,13 @@ export class StatisticsStore {
   }
 
   private getStatistics(statisticType: Array<StatisticType>, epochRange: Array<number>){
-    console.log(epochRange);
-    let result = this.statistics.map(statistic => {
+
+    let result: List<Statistic> = this.statistics.map(statistic => {
           let data = statistic.Value as Array<any>;
           let filteredData =  data.filter(d => {
-            let ha = d.Date >= epochRange[0] &&  d.Date <= epochRange[1];
-            return ha;
+            return d.Date >= epochRange[0] &&  d.Date <= epochRange[1];
           });
-          return filteredData;
+          return new Statistic(statistic.Type, filteredData);
       }).toJS();
 
     this.emitChange(result);

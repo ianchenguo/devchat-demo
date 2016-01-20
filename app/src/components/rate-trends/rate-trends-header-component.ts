@@ -11,8 +11,7 @@ import * as Rx from 'rx';
 import * as moment from 'moment';
 
 interface ISelectedDate {
-  DateString: string,
-  Epoch: number
+  DateString: string
 }
 
 export class RateTrendsHeaderComponent {
@@ -54,27 +53,18 @@ export class RateTrendsHeaderComponent {
     this.beginDate = new Date(BEGIN_DATE);
     this.endDate = new Date();
 
-    this.selectedBeginDate = {
-        DateString: moment(this.beginDate).format('YYYY/MM'),
-        Epoch: moment(this.beginDate).valueOf() };
+    this.selectedBeginDate = {DateString: moment(this.beginDate).format('YYYY/MM')};
 
-    this.selectedEndDate = {
-        DateString: moment(this.endDate).format('YYYY/MM'),
-        Epoch: moment(this.endDate).valueOf() };
+    this.selectedEndDate = {DateString: moment(this.endDate).format('YYYY/MM')};
 
     this.availableDates = this.dateService.GetMonthYears(this.beginDate, this.endDate);
   }
 
   private getStatistics(beginDate:ISelectedDate, endDate:ISelectedDate){
-    beginDate.Epoch = moment(new Date(beginDate.DateString)).valueOf();
-    endDate.Epoch = moment(new Date(endDate.DateString)).valueOf();
+    let beginEpoch = moment(new Date(beginDate.DateString)).valueOf();
+    let endEpoch = moment(new Date(endDate.DateString)).valueOf();
 
     let statisticTypes: Array<StatisticType> = [StatisticType.ConsumerProductIndexes, StatisticType.VolumeInMarketplaces];
-    this.statisticActions.GetStatistics(statisticTypes, [beginDate.Epoch, endDate.Epoch]);
+    this.statisticActions.GetStatistics(statisticTypes, [beginEpoch, endEpoch]);
   }
-
-  get ErrorMessage() {
-    return this.errorMessage;
-  }
-
 }

@@ -34,27 +34,6 @@ export class RateTrendsComponent {
     private statisticActions: StatisticActions
   ) {
     this.statistics = List<Statistic>();
-
-    let statisticSubscription = this.statisticsStore.StatisticsSubject.subscribe(
-      statistics => {
-        this.statistics = statistics;
-        console.log(this.statistics);
-      },
-      error => this.errorMessage = error);
-
-    this.$scope.$on('$destroy', () => {
-      statisticSubscription.dispose();
-    });
-
-    let statisticTypes: Array<StatisticType> = [StatisticType.ConsumerProductIndexes, StatisticType.VolumeInMarketplaces];
-    this.statisticActions.LoadStatistics(statisticTypes);
-  }
-
-  get Statistics() {
-    return this.statistics;
-  }
-
-  get ErrorMessage() {
-    return this.errorMessage;
+    this.statisticActions.LoadStatistics([StatisticType.ConsumerProductIndexes, StatisticType.VolumeInMarketplaces]);
   }
 }

@@ -56,14 +56,12 @@ var StatisticsStore = (function () {
         }, function () { return _this.emitChange(_this.Statistics); });
     };
     StatisticsStore.prototype.getStatistics = function (statisticType, epochRange) {
-        console.log(epochRange);
         var result = this.statistics.map(function (statistic) {
             var data = statistic.Value;
             var filteredData = data.filter(function (d) {
-                var ha = d.Date >= epochRange[0] && d.Date <= epochRange[1];
-                return ha;
+                return d.Date >= epochRange[0] && d.Date <= epochRange[1];
             });
-            return filteredData;
+            return new statistic_1.Statistic(statistic.Type, filteredData);
         }).toJS();
         this.emitChange(result);
     };

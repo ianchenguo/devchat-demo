@@ -1,8 +1,8 @@
 "use strict";
 require('angular-ui-router');
 require('lodash-compat');
-require('basscss/css/basscss.css');
-require('font-awesome/css/font-awesome.css');
+// import 'basscss/css/basscss.css';
+// import 'font-awesome/css/font-awesome.css';
 require('../css/styles.css');
 var angular = require('angular');
 var Rx = require('rx');
@@ -22,7 +22,8 @@ angular.module('ngcourse.statistics', [])
     .service('statisticsStore', stores_1.StatisticsStore)
     .service('statisticActions', actions_1.StatisticActions)
     .directive(components_1.RateTrendsComponent.selector, components_1.RateTrendsComponent.directiveFactory)
-    .directive(components_1.RateTrendsHeaderComponent.selector, components_1.RateTrendsHeaderComponent.directiveFactory);
+    .directive(components_1.RateTrendsHeaderComponent.selector, components_1.RateTrendsHeaderComponent.directiveFactory)
+    .directive(components_1.RateTrendsGraphsComponent.selector, components_1.RateTrendsGraphsComponent.directiveFactory);
 angular.module('ngcourse', [
     'ngcourse.statistics',
     'ngcourse.server',

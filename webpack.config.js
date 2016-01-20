@@ -18,9 +18,7 @@ module.exports = {
       'moment',
       'moment-range',
       'angular',
-      'angular-ui-router',
-      'basscss/css/basscss.css',
-      'font-awesome/css/font-awesome.css'
+      'angular-ui-router'
     ]
   },
 

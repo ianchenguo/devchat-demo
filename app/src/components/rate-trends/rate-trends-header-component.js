@@ -12,27 +12,16 @@ var RateTrendsHeaderComponent = (function () {
     RateTrendsHeaderComponent.prototype.initDates = function () {
         this.beginDate = new Date(rate_trends_constants_1.BEGIN_DATE);
         this.endDate = new Date();
-        this.selectedBeginDate = {
-            DateString: moment(this.beginDate).format('YYYY/MM'),
-            Epoch: moment(this.beginDate).valueOf() };
-        this.selectedEndDate = {
-            DateString: moment(this.endDate).format('YYYY/MM'),
-            Epoch: moment(this.endDate).valueOf() };
+        this.selectedBeginDate = { DateString: moment(this.beginDate).format('YYYY/MM') };
+        this.selectedEndDate = { DateString: moment(this.endDate).format('YYYY/MM') };
         this.availableDates = this.dateService.GetMonthYears(this.beginDate, this.endDate);
     };
     RateTrendsHeaderComponent.prototype.getStatistics = function (beginDate, endDate) {
-        beginDate.Epoch = moment(new Date(beginDate.DateString)).valueOf();
-        endDate.Epoch = moment(new Date(endDate.DateString)).valueOf();
+        var beginEpoch = moment(new Date(beginDate.DateString)).valueOf();
+        var endEpoch = moment(new Date(endDate.DateString)).valueOf();
         var statisticTypes = [statistic_type_enum_1.StatisticType.ConsumerProductIndexes, statistic_type_enum_1.StatisticType.VolumeInMarketplaces];
-        this.statisticActions.GetStatistics(statisticTypes, [beginDate.Epoch, endDate.Epoch]);
+        this.statisticActions.GetStatistics(statisticTypes, [beginEpoch, endEpoch]);
     };
-    Object.defineProperty(RateTrendsHeaderComponent.prototype, "ErrorMessage", {
-        get: function () {
-            return this.errorMessage;
-        },
-        enumerable: true,
-        configurable: true
-    });
     RateTrendsHeaderComponent.selector = 'rsRateTrendsHeader';
     RateTrendsHeaderComponent.directiveFactory = function () { return ({
         restrict: 'E',

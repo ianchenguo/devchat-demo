@@ -9,7 +9,7 @@
       "commit": "54f064352a3615443f7bff4198078db15e28247b"
     },
     "jquery/jquery.d.ts": {
-      "commit": "54f064352a3615443f7bff4198078db15e28247b"
+      "commit": "93bae1bb4c887c1375a4c1f0c3bb849ff06b8ac6"
     },
     "rx/rx-lite.d.ts": {
       "commit": "54f064352a3615443f7bff4198078db15e28247b"
@@ -97,6 +97,9 @@
     },
     "moment-range/moment-range.d.ts": {
       "commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
+    },
+    "flot/jquery.flot.d.ts": {
+      "commit": "93bae1bb4c887c1375a4c1f0c3bb849ff06b8ac6"
     }
   }
 }
